@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 import 'package:http/http.dart' as http;
 
-int perPage = 6;
+int perPage = 2;
 int present = 0;
 List<User> items = List<User>();
 List<User> users = [];
@@ -41,7 +41,7 @@ class _getDataState extends State<GetListActivity> {
             } else {
               users.addAll(items); // all index
             }
-            present = (present + perPage) - 1;
+            present = (present + perPage);
             return users;
           });
         });
@@ -79,7 +79,7 @@ class _getDataState extends State<GetListActivity> {
                         if (snapshot.data.length > 0) {
                           // here inflate data list
                           return ListView.builder(
-                              itemCount: (present < users.length) // 2 < 3
+                              itemCount: (present < items.length) // 2 < 3
                                   ? users.length + 1
                                   : users.length,
                               //    itemCount: snapshot.data.length,
