@@ -36,10 +36,12 @@ class _getDataState extends State<GetListActivity> {
       if (internet) {
         setState(() {
           getListUsers = getUsersList("2").then((items) {
-            if (items.length >= 4) {
+            if (perPage >= items.length) {
+              print("masuk");
+              users.addAll(items.getRange(0, items.length)); // all index
+            } else if (items.length >= 4) {
+              print("keluar");
               users.addAll(items.getRange(present, present + perPage));
-            } else {
-              users.addAll(items); // all index
             }
             present = (present + perPage);
             return users;
@@ -75,8 +77,8 @@ class _getDataState extends State<GetListActivity> {
                     }
                   case ConnectionState.done:
                     {
-                      if (snapshot.data != null) {
-                        if (snapshot.data.length > 0) {
+                      if (items != null) {
+                        if (items.length > 0) {
                           // here inflate data list
                           return ListView.builder(
                               itemCount: (present < items.length) // 2 < 3
